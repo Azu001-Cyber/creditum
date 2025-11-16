@@ -1,0 +1,50 @@
+{%load static%}
+{%block title%} Verify Your Email {%endblock%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body { 
+            background-color: #f5f5f5; 
+            margin: 0; padding: 0; }
+        .container { 
+            max-width: 600px; 
+            margin: 80px auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 10px; 
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            color: #007bff; 
+        }
+        p { 
+            font-size: 16px; 
+            color: #333; 
+            line-height: 1.6; 
+        }
+        .email { 
+            font-weight: bold; 
+            color: #007bff; }
+        .note {
+            margin-top: 20px; 
+            font-size: 14px;
+            color: #888; 
+        }
+    </style>
+</head>
+{%block content%}
+<body>
+    <div class="container">
+        <h2>Almost There!</h2>
+        <p>Thanks for registering, <strong>{{ email }}</strong>!</p>
+        <p>We’ve sent a verification email to your inbox. Please click the link in that email to activate your account and start using <span style="color: #ffd700; font-weight: bold;">Creditum</span>.</p>
+        <p class="note">If you don’t see the email, check your spam/junk folder or try registering again.</p>
+    </div>
+</body>
+{%endblock%}
+</html>

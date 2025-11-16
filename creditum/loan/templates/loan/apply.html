@@ -1,0 +1,180 @@
+{%extends 'base.html' %}
+{% load static %}
+
+    {%block title%}Loan Application{%endblock%}
+
+{%block head%}
+<style>
+        /* Your custom CSS */
+        .log-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .form-box {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+        }
+        .form-box p {
+            margin-bottom: 15px;
+        }
+        .form-box label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .form-box input,
+        .form-box select,
+        .form-box textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d5d9df;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.2s ease;
+            background: #fff;
+            font-size: 15px;
+        }
+        .form-box input:focus,
+        .form-box select:focus,
+        .form-box textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.25s ease;
+        }
+        .btn-submit:hover {
+            background: #0067d6;
+        }
+    </style>
+{%endblock%}
+
+{%block content%}
+<body class="bg-light">
+
+<div class="container my-5">
+    <div class="form-box">
+
+        <h2 class="log-title">Loan Application</h2>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <!-- Amount -->
+            <p>
+                {{ form.amount.label_tag }}
+                {{ form.amount }}
+                {% if form.amount.errors %}
+                    <span class="text-danger small">{{ form.amount.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Bank Account -->
+            <p>
+                {{ form.bank_account.label_tag }}
+                {{ form.bank_account }}
+                {% if form.bank_account.errors %}
+                    <span class="text-danger small">{{ form.bank_account.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Bank Name: Custom Select (for JS population) -->
+            <p>
+                <label for="branchDropdown">Bank Name</label>
+                <select 
+                    id="branchDropdown"
+                    name="bank_name"
+                    class="form-control"
+                    data-banks-url="{% url 'banks-list' %}"
+                    data-selected-bank="{{ form.initial.bank_name|default:'' }}"
+                >
+                    <!-- JS will populate options here -->
+                </select>
+
+                {% if form.bank_name.errors %}
+                    <span class="text-danger small">{{ form.bank_name.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Tenure -->
+            <p>
+                {{ form.tenure_months.label_tag }}
+                {{ form.tenure_months }}
+                {% if form.tenure_months.errors %}
+                    <span class="text-danger small">{{ form.tenure_months.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Type -->
+            <p>
+                {{ form.type.label_tag }}
+                {{ form.type }}
+                {% if form.type.errors %}
+                    <span class="text-danger small">{{ form.type.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Reason -->
+            <p>
+                {{ form.reason.label_tag }}
+                {{ form.reason }}
+                {% if form.reason.errors %}
+                    <span class="text-danger small">{{ form.reason.errors|striptags }}</span>
+                {% endif %}
+            </p>
+
+            <button type="submit" class="btn-submit">Submit Loan</button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function() {
+    const select = document.getElementById("branchDropdown");
+    if (!select) return;
+
+    const banksUrl = select.dataset.banksUrl; // now properly rendered
+    const selectedBank = select.dataset.selectedBank || "";
+
+    try {
+        const response = await fetch(banksUrl);
+        const data = await response.json();
+
+        if (data.banks) {
+            data.banks.forEach(bank => {
+                const option = document.createElement("option");
+                option.value = bank.code;
+                option.textContent = bank.name;
+                if (bank.name === selectedBank) option.selected = true;
+                select.appendChild(option);
+            });
+        } else {
+            console.error("No banks received:", data);
+        }
+    } catch (error) {
+        console.error("Error fetching banks:", error);
+    }
+});
+</script>
+</body>
+{%endblock%}

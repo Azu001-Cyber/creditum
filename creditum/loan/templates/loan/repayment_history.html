@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Repayment History{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Repayment History</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>Amount Paid</th>
+                            <th>Date Paid</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for r in repays %}
+                        <tr>
+                            <td>#{{ r.loan.id }}</td>
+                            <td class="fw-bold text-success">₦{{ r.amount|floatformat:2 }}</td>
+                            <td>{{ r.timestamp|date:"M d, Y H:i" }}</td>
+                        </tr>
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted p-4">
+                                No repayment history available.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

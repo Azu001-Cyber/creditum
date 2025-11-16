@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{%load static%}
+
+{%block title%} User Profile {%endblock%}
+
+{%block content%}
+
+{% if not has_profile %}
+<div class="text-center d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
+    <h3 class="fw-bold">No Profile Detail Found</h3>
+    <a href="{#%url 'dashboard'%#}" class="btn btn-outline-primary">Create</a>
+</div>
+{%else%}
+    <div class="container row text-start mx-0 mx-md-3">
+    <!-- Basic Account information -->
+    <div class="col-12 col-md-12 border rounded-3 mt-3 mb-5 profile-card">
+        <div class="d-flex flex-column flex-md-row justify-content-start align-items-center">
+            <div class="profile-circle m-3">
+                {% if user_info.pfp and user_info.pfp.name %}
+                <img src="{{ user_info.pfp.url }}">
+                {% else %}
+                <img src="{% static 'default_pfp/default.jpg' %}" alt="">
+                {% endif %}
+            </div>
+            <div class="text-center text-md-start">
+                <h3>{{user_info.first_name|default:"Not Set"}} {{user_info.last_name|default:"Not Set"}}</h3>
+            </div>
+        </div>
+        <hr>
+        <div><p>{{user_info.phone|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.gender|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.dob|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.email|default:"Not Set"}}</p></div>
+    </div>
+
+    <!-- Financial Account Information -->
+    <div class="col-12 col-md-12 border rounded-5 mb-5 profile-card">
+        <h3 class="text-center text-md-start">KYC Informations</h3>
+        <div><p>{{user_info.document_type|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.address|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.bvn_number|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.tin_number|default:"Not Set"}}</p></div>
+        <hr>
+        <div><p>{{user_info.date_joined}}</p></div>
+    </div>
+</div>
+
+{%endif%}
+{%endblock%}

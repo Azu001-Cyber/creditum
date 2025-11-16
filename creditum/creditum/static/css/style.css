@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
+*{
+    font-family: 'Poppins', 'Nunito', system-ui, -apple-system, sans-serif;
+
+/* 
+navbar styles
+*/
+}
+nav .navbar-Creditum{
+    text-decoration: none;
+    color: silver;
+}
+div.desktop-level-nav{
+    margin-right: 5rem;
+}
+
+/*
+Profile Circle / Picture
+*/
+.profile-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #1e90ff; /* bright blue border */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0; /* prevents shrinking on small screens */
+}
+
+.profile-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Hover effect for profile picture */
+.profile-circle:hover {
+    transform: scale(1.05);
+    border-color: #0b63c5; /* darker blue on hover */
+}
+
+/* 
+Profile Card / Container
+*/
+.profile-card {
+    background-color: #f8faff; /* light blue */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    max-width: 400px; /* reduced width on large screens */
+    margin: 20px auto; /* center horizontally */
+}
+
+/* Remove hover color effect */
+.profile-card:hover {
+    background-color: #f8faff; /* same as default */
+}
+
+/* Name styling */
+.profile-card h3 {
+    color: #0b63c5;
+    margin-bottom: 15px;
+    word-break: break-word;
+}
+
+/* User fields inside card */
+.profile-card p {
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: default;
+    word-break: break-word;
+}
+
+/* Hover effect for fields */
+.profile-card p:hover {
+    background-color: #d0e8ff;
+    color: #0b63c5;
+}
+
+/* Active / click effect */
+.profile-card p:active {
+    background-color: #c0e0ff;
+    color: #004a99;
+}
+
+/* Separator lines */
+.profile-card hr {
+    border-top: 1px solid #cce0ff;
+}
+
+/* 
+Other Existing Styles
+*/
+/* Container styling */
+.container.row {
+    max-width: 100%;
+    padding: 15px;
+}
+
+/* Section headers outside cards (if any) */
+h3 {
+    color: #1a1a1a;
+    margin-bottom: 0;
+}
+/* Every redirect link during password reset process */
+.redirect{
+    color: #ffd700;
+    text-decoration: none;
+}
+.redirect:active{
+    background-color: transparent;
+    border: 1px solid #ffd700;
+    border-radius: 1rem;
+    color: #000;
+    padding: 0.5em;
+    transition: ease-in-out 0.3s;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .profile-circle {
+        margin-bottom: 10px;
+    }
+    h3 {
+        text-align: center;
+    }
+    .col-sm-12.border {
+        padding: 15px;
+    }
+    .profile-card {
+        max-width: 90%; /* slightly wider on small screens */
+    }
+}

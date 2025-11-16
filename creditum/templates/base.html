@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+    <title>Creditum - {%block title%}{%endblock%}</title>
+    <!-- AOS  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    {%block head%}
+    {%endblock%}
+    </head>
+    <body class="min-vh-100">
+
+    <!--  NAVBAR -->
+    <nav class="navbar navbar-light bg-dark shadow-sm py-3 text-light">
+        <div class="container-fluid mx-3">
+            <div class="">
+                <img src="{% static 'images/creditumlogo.png'%}" alt="Creditum Logo" width="30" height="30">
+                <a class="navbar-Creditum fw-bold" href="{% url 'home' %}">Creditum</a>
+            </div>
+
+        <!-- Offcanvas Toggle -->
+        <button class=" btn btn-outline-light d-lg-none" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#mobileNav" id="offcanvas-show-btn">
+                <span class="nav-profile">
+                    Show
+                </span>
+        </button>
+        <!-- TODO: -->
+        <!-- on small screen change menu to an image with an arrow indication to show other links -->
+        <!-- on big screens keep how it is but dropdown link will show image along other links -->
+
+        <!-- Desktop Nav -->
+        <div class="d-none d-lg-flex gap-4 mx-5">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+            {%if not user.is_authenticated%}
+            <a class="nav-link" href="{%url 'login'%}">Login</a>
+            <a class="nav-link" href="{%url 'register'%}">Register</a>
+            {%else%}
+            <a href="{%url 'logout'%}" class="nav-link">Logout</a>
+            {%endif%}
+
+            <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                More
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'profile'%}">
+                    Profile
+                </a></li>
+                <li><a class="dropdown-item" href="{% url 'user-dashboard' %}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url 'apply_loan' %}">Apply For Loan</a></li>
+            </ul>
+            </div>
+        </div>
+
+        </div>
+    </nav>
+
+    <!--  Offcanvas Menu (Mobile) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileNav">
+        <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Creditum</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+        <ul class="navbar-nav gap-2">
+            <li><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+            {%if not user.is_authenticated%}
+            <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+            <li><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+            {%else%}
+            <li><a href="{%url 'logout'%}" class="nav-link">Logout</a></li>
+            {%endif%}
+
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                More
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">
+                    Profile
+                </a></li>
+                <li><a class="dropdown-item" href="{% url 'user-dashboard' %}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url 'apply_loan' %}">Apply For Loan</a></li>
+            </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+
+    <!--  MAIN CONTENT -->
+        {% block content %}
+        {% endblock %}
+
+
+    <!--  FOOTER -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4 text-center text-md-start">
+
+            <!-- Brand -->
+            <div class="col">
+            <h5 class="fw-bold" style="color:#FFD700;">Creditum</h5>
+            <p>Affordable loans that matter.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col">
+            <h6 class="fw-bold">Links</h6>
+            <ul class="list-unstyled">
+                <li><a class="text-decoration-none text-light" href="{% url 'home' %}">Home</a></li>
+                <li><a class="text-decoration-none text-light" href="#about">About</a></li>
+                <li><a class="text-decoration-none text-light" href="#">Customer Service</a></li>
+            </ul>
+            </div>
+
+            <!-- Socials-->
+            <div class="col">
+                <h6>Socials</h6>
+                <ul class="list-unstyled">
+                    <li><a href="https://www.linkedin.com/in/chukwuebuka-moses-2a3ab234b" class="text-decoration-none text-light" target="_blank">Linkedin</a></li>
+                    <li><a href="#" class="text-decoration-none text-light" target="_blank">Instagram</a></li>
+                    <li><a href="https://x.com/cyber_cm001" class="text-decoration-none text-light" target="_blank">Twitter X</a></li>
+                </ul>
+            </div>
+
+            <!-- Made by -->
+            <div class="col">
+                <h6>Made By</h6>
+                <p>Cybercodemomo</p>
+            </div>
+        </div>
+
+        <hr class="my-3">
+
+        <div class="text-center small">
+            &copy; {{ year|default:2025 }} — All rights reserved.
+        </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script>
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+</html>
