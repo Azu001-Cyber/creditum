@@ -156,7 +156,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # # Load credentials from .env
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # 16-digit app password
-# DEFAULT_FROM_EMAIL = "no-reply@creditum.com"
+DEFAULT_FROM_EMAIL = "no-reply@creditum.com"
 
 
 AUTH_USER_MODEL = 'account.User'

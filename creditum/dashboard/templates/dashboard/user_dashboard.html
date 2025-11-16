@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{%static 'images/favicon.png'%}" type="image/png">
         <!-- AOS  -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- Custom CSS -->
@@ -100,23 +101,29 @@
         <!-- Financial Overview -->
         <h5 class="section-title">Financial Overview</h5>
         <div class="row g-3">
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Current Loan Balance</h6>
                 <h3 class="fw-bold text-primary">₦<span id="loan-balance">{{loan_info.amount}}</span></h3>
                 </div>
             </div>
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Next Repayment Due</h6>
                 <p class="fw-bold mb-1" id="next-date">25 Nov 2025</p>
                 <p class="text-success mb-0">₦<span id="next-amount">{{loan_info.monthly_installment}}</span></p>
                 </div>
             </div>
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
-                <h6 class="text-muted">Loan Status</h6>
-                <span class="badge bg-success" id="loan-status">{{loan_info.status}}</span>
+                <h6 class="text-muted">Loan History</h6>
+                <span class="badge" id="loan-status">{{loan_info}}</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="card text-center p-3">
+                <h6 class="text-muted">Payment History</h6>
+                <span class="badge" id="loan-status">{{loan_info}}</span>
                 </div>
             </div>
         </div>
