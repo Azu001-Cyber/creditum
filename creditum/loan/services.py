@@ -26,8 +26,8 @@ def fetch_nigerian_banks():
 
         if data.get("status"):
             banks = [
-                {"name": bank["name"]}
-                for bank in data.get("data", []) ]  # "code": bank["code"]
+                {"name": bank["name"],  "code": bank["code"]}
+                for bank in data.get("data", []) ]
             # Update cache
             _bank_cache["timestamp"] = current_time
             _bank_cache["data"] = banks

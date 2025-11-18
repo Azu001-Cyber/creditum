@@ -9,7 +9,7 @@ class LoanApplicationForm(forms.ModelForm):
     class Meta:
         model = Loan
         fields = [
-            "amount", "bank_account", "bank_name",
+            "amount", "bank_account", "bank_code",
             "tenure_months", "type", "reason"
         ]
         widgets = {
@@ -21,7 +21,7 @@ class LoanApplicationForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "Enter bank account number"
             }),
-            "bank_name": forms.Select(attrs={
+            "bank_code": forms.Select(attrs={
                 "class": "form-control",
                 "placeholder": "Select a bank"
             }),

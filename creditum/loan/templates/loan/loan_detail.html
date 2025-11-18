@@ -22,7 +22,8 @@
                             {% if loan.status.STATUS_APPROVED == 'STATUS_APPROVED' %} bg-success 
                             {% elif loan.status.STATUS_PENDING == 'STATUS_PENDING' %} bg-warning 
                             {% elif loan.status == 'Rejected' %} bg-danger 
-                            {% else %} bg-secondary {% endif %}
+                            {% else %} bg-secondary 
+                            {% endif %}
                         ">
                             {{ loan.status }}
                         </span>

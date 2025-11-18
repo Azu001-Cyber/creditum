@@ -104,7 +104,7 @@
             <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Current Loan Balance</h6>
-                <h3 class="fw-bold text-primary">₦<span id="loan-balance">{{loan_info.amount}}</span></h3>
+                <h3 class="fw-bold text-primary">₦<span id="loan-balance">{{loan_info.total_payable}}</span></h3>
                 </div>
             </div>
             <div class="col-md-6 col-12">
@@ -193,16 +193,16 @@
             <!-- Basic account section -->
             <div class="col-md-4 col-12">
                 <div class="card text-center p-3">
-                    <h6>Add Basic Account Information</h6>
-                    <a href="{%url 'basic-account-create'%}" class="btn btn-outline-primary w-50 mx-auto">Create/Update</a>
+                    <h6 class="text-muted">Add Basic Account Information</h6>
+                    <a href="{%url 'basic-account-create'%}" class="border rounded-5 btn redirect w-50 mx-auto fw-semibold">Create & Update</a>
                 </div>
             </div>
 
             <!-- financial account section -->
             <div class="col-md-4 col-12">
                 <div class="card text-center p-3">
-                    <h6>Add Financial Account Informantion</h6>
-                    <a href="{%url 'financial-account-create'%}" class="btn btn-outline-success  w-50 mx-auto">Create/Update</a>
+                    <h6 class="text-muted">Add Financial Account Informantion</h6>
+                    <a href="{%url 'financial-account-create'%}" class=" border rounded-5 btn w-50 mx-auto redirect fw-semibold">Create & Update</a>
                 </div>
             </div>
 

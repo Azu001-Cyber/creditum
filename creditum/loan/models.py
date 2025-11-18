@@ -43,7 +43,8 @@ class Loan(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.PROTECT)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     bank_account = models.CharField(null=True, blank=False, max_length=12)
-    bank_name = models.CharField(null=True, blank=False, max_length=50)
+    bank_name = models.CharField(null=True, blank=False, max_length=100)
+    bank_code = models.CharField(max_length=10, null=True, blank=False) 
     tenure_months = models.PositiveIntegerField()
     interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
     status = models.CharField(max_length=10, choices=[

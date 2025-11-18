@@ -102,7 +102,7 @@
                 <label for="branchDropdown">Bank Name</label>
                 <select 
                     id="branchDropdown"
-                    name="bank_name"
+                    name="bank_code"
                     class="form-control"
                     data-banks-url="{% url 'banks-list' %}"
                     data-selected-bank="{{ form.initial.bank_name|default:'' }}"

@@ -30,6 +30,18 @@ def apply_loan(request):
         if form.is_valid():
             loan = form.save(commit=False)
             loan.borrower = request.user
+            # retriving and save bank name from paystack
+            bank_code = request.POST.get('bank_code')
+            success, banks = fetch_nigerian_banks()
+            bank_name = ""
+            if success:
+                for b in banks:
+                    if b["code"] == bank_code:
+                        bank_name = b["name"]
+                        break
+            loan.bank_code = bank_code
+            loan.bank_name = bank_name
+            # ------------------------
             loan.save()
             return redirect("loan_detail", loan.id)
     else:
