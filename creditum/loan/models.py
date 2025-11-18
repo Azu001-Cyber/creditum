@@ -111,7 +111,7 @@ class Loan(models.Model):
         if old_status != "APPROVED" and self.status == "APPROVED":
             Transaction.objects.create(
             loan=self,
-            user=self.borrower,
+            borrower=self.borrower,
             amount=self.amount,
             type="DISBURSEMENT",
             tid = generate_tid(),
@@ -121,9 +121,9 @@ class Loan(models.Model):
     
     def send_approval_email(self):
         message = (
-            f"Hello {self.user.username},\n\n"
-            f"Your loan request of {self.principal} has been approved.\n"
-            f"Loan tenure: {self.tenure} months\n"
+            f"Hello {self.borrower},\n\n"
+            f"Your loan request of {self.amount} has been approved.\n"
+            f"Loan tenure: {self.tenure_months} months\n"
             f"Interest rate: {self.interest_rate}%\n\n"
             f"Thank you!"
         )
@@ -132,14 +132,14 @@ class Loan(models.Model):
             subject="Loan Request Approved ✅",
             message=message,
             from_email=None,
-            recipient_list=[self.user.email],
+            recipient_list=[self.borrower],
             fail_silently=True,
         )
 
 
 
     def __str__(self):
-        return f'Loan {self.id} for {self.borrower.get_full_name}'
+        return f'Loan {self.id} for {self.borrower}'
     
 
 class Repayment(models.Model):
@@ -158,20 +158,20 @@ class Repayment(models.Model):
         if is_new:
             Transaction.objects.create(
                 loan=self.loan,
-                user=self.loan.borrower,
+                borrower=self.loan.borrower,
                 amount=self.amount,
                 type="REPAYMENT",
                 tid = generate_tid(),
                 narration=f"Loan repayment of {self.amount}"
             )
             
-            self.loan.send_repayment_email(self.amount)
+            # self.loan.send_repayment_email(self.amount)
 
     def send_repayment_email(self, amount):
         message = (
-            f"Hello {self.user.username},\n\n"
+            f"Hello {self.borrower},\n\n"
             f"We received your payment of {amount}.\n"
-            f"Your remaining balance is {self.outstanding_balance}.\n\n"
+            f"Your remaining balance is {self.loan.remaining_balance}.\n\n"
             f"Thank you!"
         )
 
@@ -213,4 +213,4 @@ class Transaction(models.Model):
         return self.transactions.all()
 
     def __str__(self):
-        return f"{self.type} - {self.amount} on {self.timestamp}"
+        return f"{self.type} - {self.amount} for {self.loan_id} on {self.timestamp}"

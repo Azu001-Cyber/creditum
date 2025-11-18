@@ -20,6 +20,8 @@ def upload_to(instance, filename):
 
 class User(AbstractUser):
     username = None
+    first_name = models.CharField(null=True, blank=True, max_length=50)
+    last_name = models.CharField(null=True, blank=True, max_length=50)
     email = models.EmailField(unique=True, blank=False, null=True)
     phone = PhoneNumberField(blank=False, null=True, unique=True)
     pfp = models.ImageField(upload_to=upload_to, blank=False, null=True)
@@ -59,4 +61,4 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return f'{self.first_name} {self.last_name} of {self.email}'
