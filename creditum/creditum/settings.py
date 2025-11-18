@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)839-lc)+-3)=@deqh8z%#emr#hdx+i=vo*9j*=^r7(dqu$tc1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://creditum.onrender.com']
 
 
 # Application definition
