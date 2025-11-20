@@ -22,13 +22,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)839-lc)+-3)=@deqh8z%#emr#hdx+i=vo*9j*=^r7(dqu$tc1'
+# SECRET_KEY = 'django-insecure-)839-lc)+-3)=@deqh8z%#emr#hdx+i=vo*9j*=^r7(dqu$tc1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
 
-ALLOWED_HOSTS = ['https://creditum.onrender.com']
+# DEBUG = True
 
+# ALLOWED_HOSTS = []
+
+# DEBUG =False
+
+
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+
+DEBUG = 'RENDER' not in os.environ
+
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # Application definition
 
@@ -96,7 +109,7 @@ WSGI_APPLICATION = 'creditum.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgresql://postgres:postgres@localhost:5432/creditum',
         conn_max_age=600
     )
 }
