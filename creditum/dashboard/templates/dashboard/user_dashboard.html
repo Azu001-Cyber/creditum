@@ -104,14 +104,18 @@
             <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Current Loan Balance</h6>
-                <h3 class="fw-bold text-primary">₦<span id="loan-balance">{{loan_info.total_payable}}</span></h3>
+                {%for l in loan_info%}
+                <h3 class="fw-bold text-success">₦<span id="loan-balance">{{l.remaining_balance}}</span></h3>
+                {%endfor%}
                 </div>
             </div>
             <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Next Repayment Due</h6>
                 <p class="fw-bold mb-1" id="next-date">25 Nov 2025</p>
-                <p class="text-success mb-0">₦<span id="next-amount">{{loan_info.monthly_installment}}</span></p>
+                {%for l in loan_info%}
+                <p class="text-success mb-0">₦<span id="next-amount">{{l.monthly_installment}}</span></p>
+                {%endfor%}
                 </div>
             </div>
             <div class="col-md-6 col-12">
@@ -137,22 +141,18 @@
                 <th>Date</th>
                 <th>Type</th>
                 <th>Amount</th>
-                <th>Status</th>
+                <th>Transaction ID</th>
             </tr>
             </thead>
             <tbody id="transaction-history">
+            {% for txn in txn_info%}
             <tr>
-                <td>01 Nov 2025</td>
-                <td>Repayment</td>
-                <td>₦50,000</td>
-                <td><span class="badge bg-success">Completed</span></td>
+                <td>{{txn.timestamp}}</td>
+                <td>{{txn.type}}</td>
+                <td>{{txn.amount}}</td>
+                <td>{{txn.tid}}</td>
             </tr>
-            <tr>
-                <td>10 Oct 2025</td>
-                <td>Loan Received</td>
-                <td>₦250,000</td>
-                <td><span class="badge bg-success">Credited</span></td>
-            </tr>
+            {%endfor%}
             </tbody>
         </table>
         </div>
@@ -176,13 +176,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                {% for loan in loan_info %}
+                <form  action="{% url 'repay-loan' loan_id=loan.id %}" method="post">
+                    {% csrf_token %}
                 <div class="mb-3">
                     <label for="amount" class="form-label">Payment Amount</label>
-                    <input type="number" class="form-control" id="amount" placeholder="Enter amount">
+                    <input type="number" class="form-control" id="amount" placeholder="Enter amount" name="amount">
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Pay Now</button>
                 </form>
+                {% endfor %}
             </div>
             </div>
         </div>
