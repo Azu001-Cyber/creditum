@@ -9,7 +9,7 @@ services:
     plan: free
     name: creditum
     runtime: python
-    buildCommand: 'pip install -r requirements.txt'
+    buildCommand: './build.sh/'
     startCommand: 'gunicorn creditum.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
