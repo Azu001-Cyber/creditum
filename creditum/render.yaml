@@ -1,0 +1,33 @@
+databases:
+  - name: creditumdb
+    plan: free
+    databaseName: creditumdb
+    user: creditum
+
+services:
+  - type: web
+    plan: free
+    name: creditum
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'gunicorn creditum.asgi:application -k uvicorn.workers.UvicornWorker'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: creditumdb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+        # Email env values
+      - key: EMAIL_HOST_USER
+        value : cybercodemomo@gmail.com
+      - key: EMAIL_HOST_PASSWORD
+        value: xawndgtjoajcrvtr
+      - key:  EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USE_TLS
+        value: "True"
