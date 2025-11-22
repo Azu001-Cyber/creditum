@@ -31,3 +31,5 @@ services:
         value: 587
       - key: EMAIL_USE_TLS
         value: "True"
+      - key: DEFAULT_FROM_EMAIL
+        value: 'no-reply@creditum.com'
