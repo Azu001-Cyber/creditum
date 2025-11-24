@@ -9,8 +9,10 @@ from rest_framework import status
 from .serializers import RepaymentSerializer
 from django.utils import timezone
 from decimal import Decimal
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+login_required(login_url='login')
 def UserDashboardView(request):
     user = request.user
     loan_data = Loan.objects.filter(borrower=user)

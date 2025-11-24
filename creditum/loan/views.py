@@ -23,7 +23,7 @@ def get_banks(request):
 
 
 
-# @login_required
+@login_required(login_url='login')
 def apply_loan(request):
     if request.method == "POST":
         form = LoanApplicationForm(request.POST)
@@ -50,18 +50,18 @@ def apply_loan(request):
     return render(request, "loan/apply.html", {"form": form})
 
 
-# @login_required
+@login_required(login_url='login')
 def loan_detail(request, pk):
     loan = get_object_or_404(Loan, pk=pk, borrower=request.user)
     return render(request, "loan/loan_detail.html", {"loan": loan})
 
 
-# @login_required
+@login_required(login_url='login')
 def repayment_detail(request, pk):
     repay = get_object_or_404(Repayment, pk=pk, loan__borrower=request.user)
     return render(request, 'loan/repayment_detail.html', {'repay':repay})
 
-# @login_required
+@login_required(login_url='login')
 def make_repayment(request, pk):
     loan = get_object_or_404(Loan, pk=pk, borrower=request.user)
 
@@ -131,7 +131,7 @@ def approve_loan(request, pk):
 
 
 # @staff_member_required
-# @login_required
+# @login_required(login_url='login')
 # def search_history(request):
 #     query = request.GET.get("query")
 #     search_result = []

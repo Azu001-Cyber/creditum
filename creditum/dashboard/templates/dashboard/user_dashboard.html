@@ -39,8 +39,23 @@
         }
         .table-responsive {
         border-radius: 10px;
-        background: #fff;
+        background-color: #000;
         padding: 1rem;
+        }
+        .txn-container{
+            display: flex;
+            flex-direction: column;
+            align-items:flex-start;
+            border-radius: 1rem;
+            padding:1.5rem  0 1.5rem 1.5rem;
+        }
+        .txn-container>li>a{
+            text-decoration: none;
+            color: #fff;
+        }
+        .txn-container>li{
+            list-style: none;
+            color: #fff;
         }
         @media (max-width: 768px) {
         .card-text {
@@ -112,7 +127,7 @@
             <div class="col-md-6 col-12">
                 <div class="card text-center p-3">
                 <h6 class="text-muted">Next Repayment Due</h6>
-                <p class="fw-bold mb-1" id="next-date">25 Nov 2025</p>
+                <!-- <p class="fw-bold mb-1" id="next-date">25 Nov 2025</p> -->
                 {%for l in loan_info%}
                 <p class="text-success mb-0">₦<span id="next-amount">{{l.monthly_installment}}</span></p>
                 {%endfor%}
@@ -135,34 +150,25 @@
         <!-- Transaction History -->
         <h5 class="section-title">Transaction History</h5>
         <div class="table-responsive">
-        <table class="table table-hover">
-            <thead class="table-light">
-            <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Transaction ID</th>
-            </tr>
-            </thead>
-            <tbody id="transaction-history">
             {% for txn in txn_info%}
-            <tr>
-                <td>{{txn.timestamp}}</td>
-                <td>{{txn.type}}</td>
-                <td>{{txn.amount}}</td>
-                <td>{{txn.tid}}</td>
-            </tr>
+            <ul class="txn-container bg-dark">
+                <li>Date:<a href=""> {{txn.timestamp}}</a></li>
+                <li>Type:<a href=""> {{txn.type}}</a></li>
+                <li>Transaction:<a href=""> {{txn.amount}}</a></li>
+                <li>Amount:<a href=""> {{txn.tid}}</a></li>
+            </ul>
+            <hr>
             {%endfor%}
-            </tbody>
-        </table>
         </div>
 
         <!-- Repayment Management -->
         <h5 class="section-title">Repayment Management</h5>
         <div class="card p-3">
-        <p><strong>Next Payment:</strong> {{loan_info.monthly_installment}} on 25 Nov 2025</p>
-        <p><strong>Remaining Balance:</strong>₦{{loan_info.remaining_balance}}</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal">
+        {%for l in loan_info%}
+            <p><strong>Next Payment:</strong> <span class="text-success">₦{{l.monthly_installment}}</span></p>
+            <p><strong>Remaining Balance:</strong> <span class="text-success">₦{{l.remaining_balance}}</span></p>
+        {%endfor%}
+        <button class="btn btn-primary w-50 mx-auto" data-bs-toggle="modal" data-bs-target="#paymentModal">
             Make Payment
         </button>
         </div>
@@ -228,8 +234,8 @@
             <div class="col">
             <h6 class="fw-bold">Links</h6>
             <ul class="list-unstyled">
-                <li><a class="text-decoration-none text-light" href="#">Home</a></li>
-                <li><a class="text-decoration-none text-light" href="#">About</a></li>
+                <li><a class="text-decoration-none text-light" href="{%url 'home'%}">Home</a></li>
+                <li><a class="text-decoration-none text-light" href="#about">About</a></li>
                 <li><a class="text-decoration-none text-light" href="#">Customer Service</a></li>
             </ul>
             </div>
@@ -237,9 +243,9 @@
             <div class="col">
                 <h6>Socials</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none text-light">Linkedin</a></li>
+                    <li><a href="https://www.linkedin.com/in/chukwuebuka-moses-2a3ab234b" class="text-decoration-none text-light" target="_blank">Linkedin</a></li>
                     <li><a href="#" class="text-decoration-none text-light">Instagram</a></li>
-                    <li><a href="#" class="text-decoration-none text-light">Twitter X</a></li>
+                    <li><a href="https://x.com/cyber_cm001" class="text-decoration-none text-light" target="_blank">Twitter X</a></li>
                 </ul>
             </div>
 

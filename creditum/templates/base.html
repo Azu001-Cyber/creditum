@@ -28,7 +28,7 @@
             </div>
 
         <!-- Offcanvas Toggle -->
-        <button class=" btn btn-outline-light d-lg-none" type="button"
+        <button class=" btn btn-outline-light d-lg-none bg-light" type="button"
                 data-bs-toggle="offcanvas" data-bs-target="#mobileNav" id="offcanvas-show-btn">
                 <span class="nav-profile navbar-toggler-icon">
                 </span>
@@ -47,6 +47,7 @@
             <a href="{%url 'logout'%}" class="nav-link">Logout</a>
             {%endif%}
 
+            {% if user.is_authenticated%}
             <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                 More
@@ -59,15 +60,16 @@
                 <li><a class="dropdown-item" href="{% url 'apply_loan' %}">Apply For Loan</a></li>
             </ul>
             </div>
+            {%endif%}
         </div>
 
         </div>
     </nav>
 
     <!--  Offcanvas Menu (Mobile) -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileNav">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileNav" style="background-color: black; color: #fff;">
         <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Creditum</h5>
+        <h5 class="offcanvas-title" style="color: silver;">Creditum</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
@@ -81,6 +83,7 @@
             <li><a href="{%url 'logout'%}" class="nav-link">Logout</a></li>
             {%endif%}
 
+            {%if user.is_authenticated%}
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                 More
@@ -93,6 +96,7 @@
                 <li><a class="dropdown-item" href="{% url 'apply_loan' %}">Apply For Loan</a></li>
             </ul>
             </li>
+            {%endif%}
         </ul>
         </div>
     </div>

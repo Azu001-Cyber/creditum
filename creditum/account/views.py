@@ -7,7 +7,7 @@ from django.views.decorators.http import require_GET
 from . models import User
 # Create your views here.
 
-# @login_required
+@login_required(login_url='login')
 def account_view(request):
     user = request.user
 
@@ -24,7 +24,7 @@ def account_view(request):
 
 
 
-# @login_required
+@login_required(login_url='login')
 def financial_account_view(request):
     user = request.user
 
@@ -40,7 +40,7 @@ def financial_account_view(request):
     return render(request, "account/financial_account.html", {"form": form})
 
 @require_GET
-# @login_required
+@login_required(login_url='login')
 def user_profile_view(request):
     user = request.user
     try:
